@@ -1,0 +1,20 @@
+ADMIN
+
+SOLUTIONS
+	SSL Encryption
+	GUI
+	Logins
+	Movie Management
+WANTS
+	Easy to use Admin interface
+	Minimal System impact
+	Can be used in a sub domain / folder
+	large amount of users can use
+	GUI for Control Panel
+	Secure
+	Logins
+	Can be hosted by a Webhost / VPS service
+	Pools of movies to vote
+	can make temporary accounts
+	Different Sources of Movies
+	Metacritic reviews
