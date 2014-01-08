@@ -6,5 +6,9 @@
 	</head>
 	<body>
 		<div>
+			<?php 
+			$db = pg_connect (localhost);	
+			?>
+		</div>
 	</body>
 </html>
