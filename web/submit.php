@@ -10,7 +10,8 @@
 
 	
 		$count = pg_fetch_object(pg_query($conn, "SELECT count FROM votestally WHERE " . $movie_id . " = movie_id");
-		pg_querry($conn, "UPDATE INTO votestally ") 
+		$count = $count->count;
+		pg_query($conn, "UPDATE votestally SET count=" . $count+1 . " WHERE movie_id=" . $movie_id);
 
 	}
 
