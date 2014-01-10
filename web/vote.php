@@ -28,7 +28,7 @@
 				echo "<p class='writers'><span class='written'>Written by: </span>" . $jsonArray['Writer'] . "</p>";
 				echo "<p class='genre'><span class='genred'>Genre(s): </span>" . $jsonArray['Genre'] . "</p>";
 				echo "<p class='metascore'><span class='metascored'>Metascore: </span>" . $jsonArray['Metascore'] . "</p>";
-				echo "<p class='vote'><input type='radio' name='select' id='vote-" . $jsonArray['Title'] . "' value='" . $jsonArray['Title'] . "'/></p>";
+				echo "<p class='vote'><input type='radio' name='select' id='vote-" . $jsonArray['Title'] . "' value='" . $movie->movie_id . "'/></p>";
 				echo "<hr />";
 			}
 		?>
