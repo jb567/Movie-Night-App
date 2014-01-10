@@ -1,51 +1,38 @@
-<html>
+
+	<?php
+
+		error_reporting(E_ALL);
+		ini_set('display_errors', TRUE);
+		ini_set('display_startup_errors', TRUE);
+		// can I haz database
+		$conn = pg_connect("dbname=movie host=localhost user=movie password=movie");
+		$mlist = pg_query($conn, "SELECT * FROM movies");
+	?>
 	<head>
 		<title>
 			Movie Voter | Voting Page
 		</title>
 	</head>
 	<body>
-		<div>
-			<table>
-				<tr>
-					<td>
-						<img src="img/worldsend.jpg" alt="The World's End Movie Poster" width="327"/>
-					</td>
-					<td>
-						<h1>
-							The World's End
-						</h1>
-						<p>
-							Five friends who reunite in an attempt to top their epic pub crawl from 20 years earlier unwittingly become humankind's only hope for survival.
-								<BR />
-							Director: Edgar Wright
-								<BR />
-							Writers: Simon Pegg, Edgar Wright
-								<BR />
-							Stars: Simon Pegg, Nick Frost, Martin Freeman
-						</p>
-					<td>
-				</tr>
-				<tr>
-					<td>
-						<center>
-						<a href='http://www.imdb.com/title/tt1213663/'>
-							<img src="img/imdb.png" alt="IMDb Database entry for 'The World's End'" width="100px"/>
-						</a> <img src="img/metascore.png" height=100px width=100px />
-					</center>
-					</td>
-					<td>
-						<img src="img/Vote.png" onmouseover="this.src='img/voteh.png'" onmouseout="this.src='img/Vote.png'" />
-				</tr>
-			</table>
-			<hr />
-		</div>
-
+		<form action="submit.php" method="GET">
 		<?php
-			$title = ("Captain Phillips");
-			$raw = file_get_contents('http://www.omdbapi.com/?t=' . urlencode($title));
-			$jsonArray = json_decode($raw, true);
-			echo "<img src='" . $jsonArray['Poster'] . "' alt='Poster for " . $title . "' width=327px/>";
-	?>
+
+			while ($movie = pg_fetch_object ($mlist)){
+				$title = $movie->title;
+				$raw = file_get_contents('http://www.omdbapi.com/?t=' . urlencode($title));
+				$jsonArray = json_decode($raw, true);
+				echo "<img src='" . $jsonArray['Poster'] . "' alt='Poster for " . $title . "' width=327px/>";
+				echo "<p>" . $jsonArray['Plot'] . "</p>";
+				echo "<p class='actors'> <span class'starring'>Starring: </span>" . $jsonArray['Actors'] . "</p>";
+				echo "<p class='directors'><span class='directed'>Directed by: </span>" . $jsonArray['Director'] . "</p>";
+				echo "<p class='writers'><span class='written'>Written by: </span>" . $jsonArray['Writer'] . "</p>";
+				echo "<p class='genre'><span class='genred'>Genre(s): </span>" . $jsonArray['Genre'] . "</p>";
+				echo "<p class='metascore'><span class='metascored'>Metascore: </span>" . $jsonArray['Metascore'] . "</p>";
+				echo "<p class='vote'><input type='radio' name='select' id='vote-" . $jsonArray['Title'] . "' value='" . $jsonArray['Title'] . "'/></p>";
+				echo "<hr />";
+			}
+		?>
+		<input type="submit" value="submit" />
+		</form>
 	</body>
 </html>
